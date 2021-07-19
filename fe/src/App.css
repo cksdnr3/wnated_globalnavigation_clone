@@ -1,0 +1,10 @@
+@font-face {
+  font-family: 'Nanum Gothic';
+  src: url('./styles/fonts/NanumGothic.woff');
+}
+
+@font-face {
+  font-family: 'Nanum Gothic B';
+  src: url('./styles/fonts/NanumGothicBold.woff');
+}
+
