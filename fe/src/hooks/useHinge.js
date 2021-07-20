@@ -1,12 +1,14 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
-export default (setter = null) => {
+export default () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const openHandler = useCallback(() => {
-    setter(true);
+    setIsOpen(true);
   }, []);
   const closeHandler = useCallback(() => {
-    setter(false);
+    setIsOpen(false);
   }, []);
 
-  return [openHandler, closeHandler];
+  return [isOpen, openHandler, closeHandler];
 };

@@ -7,6 +7,7 @@ import Explore from './Explore';
 import logo from '../../images/wanted.png';
 import SignModal from './SignModal';
 import useHinge from '../../hooks/useHinge';
+import DropDownMenu from './DropDownMenu';
 
 const MAIN_ITEMS = [
   { text: '홈', selected: false, xsOnly: true },
@@ -21,10 +22,11 @@ const MAIN_ITEMS = [
 
 const GlobalNavigationBar = () => {
   const [mainItems, setMainItems] = useState(MAIN_ITEMS);
-
-  const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
   const [isExploreOpen, setIsExploreOpen] = useState(false);
-  const [isSignModalOpen, setIsSignModalOpen] = useState(false);
+
+  const [isSearchBarOpen, openSearchBar, closeSearchBar] = useHinge();
+  const [isSignModalOpen, openSignModal, closeSignModal] = useHinge();
+  const [isDropDownMenuOpen, openDropDownMenu, closeDropDownMenu] = useHinge();
 
   const changePage = useCallback((item) => () => {
     setMainItems(mainItems.map((v) => {
@@ -34,9 +36,6 @@ const GlobalNavigationBar = () => {
       return { ...v, selected: false };
     }));
   }, [mainItems]);
-
-  const [openSearchBar, closeSearchBar] = useHinge(setIsSearchBarOpen);
-  const [openSignModal, closeSignModal] = useHinge(setIsSignModalOpen);
 
   return (
     <>
@@ -50,7 +49,7 @@ const GlobalNavigationBar = () => {
                   alt="logo"
                 />
               </IconAnchor>
-              <button onClick={setIsSignModalOpen} type="button">회원가입하기</button>
+              <button onClick={openSignModal} type="button">회원가입하기</button>
             </XsDivide>
             <MenuItems>
               {mainItems?.map((item) => (
@@ -65,7 +64,9 @@ const GlobalNavigationBar = () => {
             {isExploreOpen && <Explore setIsExploreOpen={setIsExploreOpen} show={isExploreOpen ? 'show' : ''} />}
             <AsideMenu>
               <ul>
-                <li><SearchOutlined style={{ fontSize: '18px' }} onClick={openSearchBar} /></li>
+                <li>
+                  <SearchOutlined style={{ fontSize: '18px' }} onClick={openSearchBar} />
+                </li>
                 <li>
                   <button onClick={openSignModal} className="signupButton" type="button">
                     회원가입/로그인
@@ -75,11 +76,12 @@ const GlobalNavigationBar = () => {
                   <a className="dashboardButton">기업 서비스</a>
                 </li>
                 <li>
-                  <button className="menuButton" type="button">
+                  <button onClick={openDropDownMenu} className="menuButton" type="button">
                     <MenuOutlined style={{ fontSize: '18px' }} />
                   </button>
                 </li>
               </ul>
+              {isDropDownMenuOpen && <DropDownMenu onClose={closeDropDownMenu} />}
             </AsideMenu>
           </Nav>
         </NavWrapper>
