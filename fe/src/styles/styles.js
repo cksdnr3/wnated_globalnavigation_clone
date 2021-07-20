@@ -3,7 +3,6 @@ import styled, { createGlobalStyle } from 'styled-components';
 export default createGlobalStyle`
   body {
       line-height: 1.42857143;
-      font-family: 'Nanum Gothic';
       font-size: 14px;
   }
   
@@ -26,6 +25,12 @@ export default createGlobalStyle`
       outline: 0;
       border: 0;
       background: none;
+  }
+  
+  input, input:focus {
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
   }
 
   

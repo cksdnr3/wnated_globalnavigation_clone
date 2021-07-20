@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { SearchOutlined, CloseOutlined, RightOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 import TagListItem from './TagListItem';
+import useInput from '../../hooks/useInput';
 
 const HASHTAG = [
   { tag: '#연봉 상위',
@@ -19,6 +20,7 @@ const HASHTAG = [
 
 const SearchBar = ({ onClose }) => {
   const [text, setText] = useState('');
+  const [input, onChangeInput] = useInput('');
 
   useEffect(() => {
     function onResize() {
@@ -39,7 +41,7 @@ const SearchBar = ({ onClose }) => {
       <SearchBarStyle>
         <SearchInputWrapper>
           <form style={{ position: 'relative' }}>
-            <SearchInput placeholder="#태그, 회사, 포지션 검색" />
+            <SearchInput value={input} onChange={onChangeInput} placeholder="#태그, 회사, 포지션 검색" />
             <SearchIcon />
             <Button onClick={onClose}>
               <CloseOutlined />

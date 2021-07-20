@@ -5,21 +5,26 @@ import MenuItem from './MenuItem';
 import SearchBar from './SearchBar';
 import Explore from './Explore';
 import logo from '../../images/wanted.png';
+import SignModal from './SignModal';
+import useHinge from '../../hooks/useHinge';
+
+const MAIN_ITEMS = [
+  { text: '홈', selected: false, xsOnly: true },
+  { text: '탐색', selected: false },
+  { text: '커리어 성장', selected: false },
+  { text: '이력서', selected: false, smMoreVisible: true },
+  { text: '직군별 연봉', selected: false, smMoreVisible: true },
+  { text: '매치업', selected: false, smMoreVisible: true },
+  { text: '프리랜서', selected: false, smMoreVisible: true },
+  { text: 'Ai 합격예측', selected: false, smMoreVisible: true },
+];
 
 const GlobalNavigationBar = () => {
-  const [mainItems, setMainItems] = useState([
-    { text: '홈', selected: false, xsOnly: true },
-    { text: '탐색', selected: false },
-    { text: '커리어 성장', selected: false },
-    { text: '이력서', selected: false, smMoreVisible: true },
-    { text: '직군별 연봉', selected: false, smMoreVisible: true },
-    { text: '매치업', selected: false, smMoreVisible: true },
-    { text: '프리랜서', selected: false, smMoreVisible: true },
-    { text: 'Ai 합격예측', selected: false, smMoreVisible: true },
-  ]);
+  const [mainItems, setMainItems] = useState(MAIN_ITEMS);
 
   const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
   const [isExploreOpen, setIsExploreOpen] = useState(false);
+  const [isSignModalOpen, setIsSignModalOpen] = useState(false);
 
   const changePage = useCallback((item) => () => {
     setMainItems(mainItems.map((v) => {
@@ -30,13 +35,8 @@ const GlobalNavigationBar = () => {
     }));
   }, [mainItems]);
 
-  const openSearchBar = useCallback(() => {
-    setIsSearchBarOpen(true);
-  }, []);
-
-  const closeSearchBar = useCallback(() => {
-    setIsSearchBarOpen(false);
-  }, []);
+  const [openSearchBar, closeSearchBar] = useHinge(setIsSearchBarOpen);
+  const [openSignModal, closeSignModal] = useHinge(setIsSignModalOpen);
 
   return (
     <>
@@ -50,7 +50,7 @@ const GlobalNavigationBar = () => {
                   alt="logo"
                 />
               </IconAnchor>
-              <button type="button">회원가입하기</button>
+              <button onClick={setIsSignModalOpen} type="button">회원가입하기</button>
             </XsDivide>
             <MenuItems>
               {mainItems?.map((item) => (
@@ -67,7 +67,7 @@ const GlobalNavigationBar = () => {
               <ul>
                 <li><SearchOutlined style={{ fontSize: '18px' }} onClick={openSearchBar} /></li>
                 <li>
-                  <button className="signupButton" type="button">
+                  <button onClick={openSignModal} className="signupButton" type="button">
                     회원가입/로그인
                   </button>
                 </li>
@@ -85,6 +85,7 @@ const GlobalNavigationBar = () => {
         </NavWrapper>
       </GNB>
       {isSearchBarOpen && <SearchBar onClose={closeSearchBar} />}
+      {isSignModalOpen && <SignModal onClose={closeSignModal} />}
     </>
   );
 };
@@ -189,6 +190,10 @@ const MenuItems = styled.ul`
   
   & > .xsOnly {
     @media (min-width: 992px) and (max-width:1199px) {
+      display: none;
+    }
+    
+    @media (min-width: 768px) and (max-width:991px) {
       display: none;
     }
     

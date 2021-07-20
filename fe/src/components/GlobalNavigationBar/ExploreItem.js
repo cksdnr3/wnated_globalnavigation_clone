@@ -3,37 +3,33 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { RightOutlined } from '@ant-design/icons';
 
-const ExploreItem = ({ item }) => {
-  console.log();
-
-  return (
-    <>
-      <ExploreItemStyle>
-        {item.job ? (
-          <a>
-            <h2>
-              {item.job}
-              {' '}
-              <RightOutlined style={{ fontSize: '11px', color: '#999', position: 'absolute', top: '3px', right: '0' }} />
-            </h2>
-          </a>
-        ) : <a><h2>&nbsp;</h2></a>}
-        {/* eslint-disable-next-line react/no-array-index-key */}
-        {item.category?.map((v, i) => <a key={i}><h3>{v}</h3></a>)}
-        {item.jobs && item.jobs.map((v, i) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <a key={i}>
-            <h2>
-              {v}
-              {' '}
-              <RightOutlined style={{ fontSize: '11px', color: '#999', position: 'absolute', top: '3px', right: '0' }} />
-            </h2>
-          </a>
-        ))}
-      </ExploreItemStyle>
-    </>
-  );
-};
+const ExploreItem = ({ item }) => (
+  <>
+    <ExploreItemStyle>
+      {item.job ? (
+        <a>
+          <h2>
+            {item.job}
+            {' '}
+            <RightOutlined style={{ fontSize: '11px', color: '#999', position: 'absolute', top: '3px', right: '0' }} />
+          </h2>
+        </a>
+      ) : <a><h2>&nbsp;</h2></a>}
+      {/* eslint-disable-next-line react/no-array-index-key */}
+      {item.category?.map((v, i) => <a key={i}><h3>{v}</h3></a>)}
+      {item.jobs && item.jobs.map((v, i) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <a key={i}>
+          <h2>
+            {v}
+            {' '}
+            <RightOutlined style={{ fontSize: '11px', color: '#999', position: 'absolute', top: '3px', right: '0' }} />
+          </h2>
+        </a>
+      ))}
+    </ExploreItemStyle>
+  </>
+);
 
 const ExploreItemStyle = styled.div`
   float: left;
