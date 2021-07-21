@@ -18,7 +18,7 @@ const LoginButton = ({ button, openSignin }) => (
 LoginButton.propTypes = {
   openSignin: PropTypes.func.isRequired,
   button: PropTypes.shape({
-    icon: PropTypes.objectOf,
+    icon: PropTypes.objectOf(PropTypes.any),
     text: PropTypes.string,
     social: PropTypes.bool,
   }).isRequired,

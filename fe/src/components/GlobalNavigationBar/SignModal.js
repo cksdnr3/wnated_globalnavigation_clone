@@ -11,7 +11,8 @@ const BUTTONS = [
   { icon: <MailOutlined />,
     text: '이메일로 시작하기',
     social: false },
-  { icon: '' },
+  { icon: '',
+    text: '' },
   { icon: <FacebookFilled />,
     text: 'Facebook으로 시작하기',
     social: true },
@@ -26,9 +27,8 @@ const BUTTONS = [
 const SignModal = ({ onClose }) => {
   console.log('SignModal render');
   const [email, onChangeEmail] = useInput('');
-  const [isOpenSignin, setIsOpenSignin] = useState(false);
-
-  const [openSignin, closeSignin] = useHinge(setIsOpenSignin);
+  const [password, onChangePassword] = useInput('');
+  const [isOpenSignin, openSignin] = useHinge();
 
   return (
     <>
@@ -44,11 +44,11 @@ const SignModal = ({ onClose }) => {
             {isOpenSignin
               ? (
                 <div>
-                  <input type="email" value={email} style={{ display: 'none' }} />
+                  <input type="email" value={email} readOnly style={{ display: 'none' }} />
                   <EmailLogin>
                     <label htmlFor="password-text-field">비밀번호</label>
                     <div>
-                      <input id="password-text-field" type="password" placeholder="비밀번호" />
+                      <input value={password} onChange={onChangePassword} id="password-text-field" type="password" placeholder="비밀번호" />
                     </div>
                   </EmailLogin>
                   <Button type="button">로그인</Button>
@@ -82,7 +82,13 @@ const SignModal = ({ onClose }) => {
                       </div>
                     </EmailLogin>
                     <LoginButtonsStyle>
-                      {BUTTONS?.map((v) => <LoginButton openSignin={openSignin} button={v} />)}
+                      {BUTTONS?.map((v) => (
+                        <LoginButton
+                          key={v.text}
+                          openSignin={openSignin}
+                          button={v}
+                        />
+                      ))}
                     </LoginButtonsStyle>
                     <PrivacyNotice>
                       걱정마세요! 여러분의 지원 활동은 SNS에 노출되지 않습니다.

@@ -81,7 +81,12 @@ const GlobalNavigationBar = () => {
                   </button>
                 </li>
               </ul>
-              {isDropDownMenuOpen && <DropDownMenu onClose={closeDropDownMenu} />}
+              {isDropDownMenuOpen && (
+              <DropDownMenu
+                openSignModal={openSignModal}
+                onClose={closeDropDownMenu}
+              />
+              )}
             </AsideMenu>
           </Nav>
         </NavWrapper>
@@ -134,7 +139,7 @@ const NavWrapper = styled.div`
 `;
 
 const Nav = styled.nav`
-  ul {
+  & > ul {
     margin: 0;
   }
   
@@ -249,7 +254,7 @@ const MenuItems = styled.ul`
 const AsideMenu = styled.aside`
   height: 100%;
   
-  ul {
+  & > ul {
     .leftDivision {
       display: inline-flex;
       
@@ -280,7 +285,7 @@ const AsideMenu = styled.aside`
     }
   }
   
-  ul > li {
+  &>ul > li {
     position: relative;
     display: inline-block;
     height: 100%;
@@ -312,7 +317,7 @@ const AsideMenu = styled.aside`
     }
   }
   
-  ul > li > * {
+  & > ul > li>* {
     padding: 0 10px;
     height: 100%;
     padding: 0 10px;

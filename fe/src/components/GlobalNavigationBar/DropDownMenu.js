@@ -4,7 +4,9 @@ import styled from 'styled-components';
 import { CloseOutlined } from '@ant-design/icons';
 import logo from '../../images/logo.png';
 
-const DropDownMenu = ({ onClose }) => {
+const DROP_DOWN = ['이력서', '매치업', '추천', '프리랜서', '직군별 연봉', '커리어 성장', '기업 서비스'];
+
+const DropDownMenu = ({ onClose, openSignModal }) => {
   console.log();
 
   return (
@@ -19,7 +21,12 @@ const DropDownMenu = ({ onClose }) => {
               </button>
             </Icons>
             <ul><li /></ul>
-            <Ul><li>li</li></Ul>
+            <UlWrapper>
+              <li><button onClick={openSignModal} type="button">로그인</button></li>
+              {DROP_DOWN.map((v) => ((v === '이력서' || v === '직군별 연봉' || v === '기업 서비스')
+                ? <DivideCategory key={v}><a>{v}</a></DivideCategory>
+                : <li key={v}><a>{v}</a></li>))}
+            </UlWrapper>
           </DropDownContainer>
           <div />
         </DropDownMenuStyle>
@@ -30,6 +37,7 @@ const DropDownMenu = ({ onClose }) => {
 
 DropDownMenu.propTypes = {
   onClose: PropTypes.func.isRequired,
+  openSignModal: PropTypes.func.isRequired,
 };
 
 const XsOnly = styled.div`
@@ -93,6 +101,25 @@ const DropDownContainer = styled.div`
 const Ul = styled.ul`
   margin: 45px 0 15px;
   
+  button {
+    display: block;
+    width: 100%;
+    color: #333;
+    padding: 15px 0;
+    font-size: 20px;
+    line-height: 1;
+    text-align: left;
+  }
+  
+  li {
+    a {
+      padding: 15px 0;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1;
+    }
+  }
+  
   @media (min-width: 768px) and (max-width: 991px) {
       display: none;
   }
@@ -103,6 +130,25 @@ const Ul = styled.ul`
   @media (min-width: 1200px) {
       display: none;
   }
+`;
+
+const UlWrapper = styled(Ul)`
+  li {
+    width: 100%;
+    height: auto;
+    
+    a {
+      position: relative;
+      display: block;
+      width: 100%;
+    }
+  }
+`;
+
+const DivideCategory = styled.li`
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+  margin-top: 15px;
 `;
 
 const Icons = styled.div`
