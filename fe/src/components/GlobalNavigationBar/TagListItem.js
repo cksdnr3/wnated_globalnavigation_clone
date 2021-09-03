@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const TagListItem = ({ hashtag }) => (
+
   <>
     <li className="tagListItem">
       <Button color={hashtag.color}>
