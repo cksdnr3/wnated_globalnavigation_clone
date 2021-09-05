@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { RightOutlined } from '@ant-design/icons';
 
 const ExploreItem = ({ item }) => (
+  
   <>
     <ExploreItemStyle>
       {item.job ? (
