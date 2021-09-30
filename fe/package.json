@@ -30,7 +30,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "homepage": "https://optimistic-pare-20119c.netlify.app",
+  "homepage": "./",
   "eslintConfig": {
     "extends": [
       "react-app",
